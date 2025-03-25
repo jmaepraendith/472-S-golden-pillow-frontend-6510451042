@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import DOMPurify from 'dompurify';
 import './RegisterProductPage.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,14 +29,15 @@ function RegisterProductPage() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file  && file.type.startsWith('image/')) {
+    if (file  && file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024) { // Validate file type and size (max 5MB)) {
       setProductData((prevData) => ({
         ...prevData,
         image: file,
       }));
+      const objectURL = URL.createObjectURL(file);
       setPreviewImage(URL.createObjectURL(file)); // Create a preview URL for the selected image
     } else {
-      alert('Please select a valid image file.');
+      alert('Please select a valid image file (max size 5MB).');
     }	    
   };
 
@@ -76,7 +78,7 @@ function RegisterProductPage() {
         <div className="image-section">
           {/* Show preview image if selected, else show a placeholder */}
           {previewImage ? (
-            <img src={previewImage} alt="Preview" />
+            <img src={DOMPurify.sanitize(previewImage)} alt="Preview" />
           ) : (
             <img src="pngtree-durian-png-image_9440762.png" alt="Durian" />
           )}

@@ -12,22 +12,23 @@ const YourOrderPage = () => {
   const [allOrders, setAllOrders] = useState([]);
   // const [receiptPath, setReceiptPath] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
+  const [productImages, setProductImages] = useState({});
 
   const handleReview = (line) => {
-    const username = localStorage.getItem('username') || "Guest"; // ดึง username จาก localStorage
-    const productDetails = findProductDetails(line.lotId, line.grade); // หาข้อมูลสินค้า
-  
+    const username = localStorage.getItem('username') || "Guest";
+    const productDetails = findProductDetails(line.lotId, line.grade);
+    const productImage = productImages[`${line.lotId}-${line.grade}`] || "default-durian.jpg";
+    
     navigate("/order/review", {
       state: {
         order_id: orderDetails.orderId,
         lot_id: line.lotId,
         grade: line.grade,
         username,
-        product_image: productDetails ? productDetails.image_path : "default-durian.jpg"
+        product_image: productImage
       }
     });
   };
-  
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -59,6 +60,7 @@ const YourOrderPage = () => {
       }
     };
 
+
     // const fetchReceipt = async () => {
     //   try {
     //     const response = await axios.get(`http://localhost:13889/receipt/${orderId}`);
@@ -73,15 +75,26 @@ const YourOrderPage = () => {
   
     // };
 
+
     const fetchAllProducts = async () => {
       try {
         const response = await fetch('http://localhost:13889/allproductslist');
         const data = await response.json();
         setAllProducts(data);
+        
+        // Process product images
+        const images = {};
+        data.forEach(product => {
+          const key = `${product.lot_id}-${product.grade}`;
+          const imagePath = product.image_path;
+          images[key] = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+        });
+        setProductImages(images);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
+    
     fetchDeliverOrders();
     fetchAllProducts();
     fetchOrderDetails();
@@ -110,7 +123,7 @@ const YourOrderPage = () => {
 
   const findorderDetails = (orderId) => {
     const orderIdDetail = allOrders.find(
-      (orderIdDetail) => orderIdDetail.order_id === parseInt(orderId) // Make sure orderId is an integer
+      (orderIdDetail) => orderIdDetail.order_id === parseInt(orderId)
     );
     if (!orderIdDetail) {
       console.warn(`orderIdDetail not found for orderId: ${orderId}`);
@@ -119,8 +132,8 @@ const YourOrderPage = () => {
   };
 
   const findOrderEms = (orderId) => {
-    const orderEms= allDeliverOrders.find(
-      (orderEms) => orderEms.order_id === parseInt(orderId) // Make sure orderId is an integer
+    const orderEms = allDeliverOrders.find(
+      (orderEms) => orderEms.order_id === parseInt(orderId)
     );
     if (!orderEms) {
       console.warn(`orderEms not found for orderId: ${orderId}`);
@@ -186,7 +199,6 @@ const YourOrderPage = () => {
         </div>
 
 
-          
 
         </div>
 
@@ -200,13 +212,16 @@ const YourOrderPage = () => {
 
           <div className="product-list">
             {orderDetails.orderLines.map((line, index) => {
-              const productDetails = findProductDetails(line.lotId, line.grade);
-
+              const imageKey = `${line.lotId}-${line.grade}`;
+              const imagePath = productImages[imageKey];
+              
               return (
                 <div className="product-item" key={index}>
                   <img
+
                     src={`http://localhost:13889/images/lot002.png`}
                     alt={line.lotId}
+
                     className="product-imageorder"
                   />
                   <div className="product-infoorder">
@@ -228,7 +243,6 @@ const YourOrderPage = () => {
               );
             })}
           </div>
-
 
         </div>
       </div>
