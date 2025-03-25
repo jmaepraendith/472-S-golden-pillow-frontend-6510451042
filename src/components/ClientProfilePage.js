@@ -73,7 +73,7 @@ const ClientProfilePage = () => {
           <p><strong>Postal Code:</strong> {userData.postal_code}</p>
         </div>
   
-        
+
       </div>
   
       <div className="orders-section">
