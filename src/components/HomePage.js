@@ -6,10 +6,10 @@ import './HomePage.css';
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [userData, setUserData] = useState([]);
+  // const [userData, setUserData] = useState([]);
   const navigate = useNavigate();
   const userId = localStorage.getItem('userId'); // Retrieve the userId from localStorage
-  const username = localStorage.getItem('username'); // Retrieve the userId from localStorage
+  // const username = localStorage.getItem('username'); // Retrieve the userId from localStorage
 
   
   useEffect(() => {
@@ -127,7 +127,7 @@ useEffect(() => {
             Grade: {product ? product.grade : '-'}
           </h2>
           <img
-            src={product ? `http://localhost:13889${product.image_path}` : '/image/durian.png'}
+            src={product ? `http://localhost:13889/${product.image_path}` : '/image/durian.png'}
             alt="Durian"
             className="product-image-homepage"
           />

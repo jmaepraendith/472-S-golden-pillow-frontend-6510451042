@@ -68,12 +68,12 @@ const AdminCheckOrderPage = () => {
   const handleShowSlip = () => setShowSlip(true);
   const handleCloseSlip = () => setShowSlip(false);
 
-  const togglePackedStatus = (index) => {
-    setPackedStatus((prevStatus) => ({
-      ...prevStatus,
-      [index]: !prevStatus[index],
-    }));
-  };
+  // const togglePackedStatus = (index) => {
+  //   setPackedStatus((prevStatus) => ({
+  //     ...prevStatus,
+  //     [index]: !prevStatus[index],
+  //   }));
+  // };
 
   const handleConfirmChange = async () => {
     //axios.post(`http://localhost:13889/orders/updatePackedStatus`)
@@ -131,19 +131,19 @@ const AdminCheckOrderPage = () => {
         alert("Failed to update packed_status.");
       }
   };
-  const handleprintreceipt = async () => {
-    const userId = localStorage.getItem('userId');
-    try {
-      await axios.post(`http://localhost:13889/orders/createreceipt`, {
-        orderId,
-        userId,
-      });
-      alert("Receipt created successfully.");
-    } catch (error) {
-      console.error("Error creating receipt:", error.response ? error.response.data : error.message);
-      alert("Failed to create receipt.");
-    }
-  };
+  // const handleprintreceipt = async () => {
+  //   const userId = localStorage.getItem('userId');
+  //   try {
+  //     await axios.post(`http://localhost:13889/orders/createreceipt`, {
+  //       orderId,
+  //       userId,
+  //     });
+  //     alert("Receipt created successfully.");
+  //   } catch (error) {
+  //     console.error("Error creating receipt:", error.response ? error.response.data : error.message);
+  //     alert("Failed to create receipt.");
+  //   }
+  // };
   
 
   if (!filteredOrder) {
@@ -156,7 +156,7 @@ const AdminCheckOrderPage = () => {
         <div className="header">
           <button className="back-buttonador" onClick={() => navigate(`/admin/${userId}`)}>Back</button>
           <h1>Order Clients</h1>
-          <button className="confirm-button" onClick={handleConfirmChange}>Confirm This Change</button>
+          {/* <button className="confirm-button" onClick={handleConfirmChange}>Confirm This Change</button> */}
         </div>
 
         <div className="productcontent-container">
@@ -169,7 +169,7 @@ const AdminCheckOrderPage = () => {
                   <div key={index} className="product-card">
                     {productDetails ? (
                       <>
-                        <img src={`http://localhost:13889${productDetails.image_path}`} alt="Product" className="product-image" />
+                        <img src={`http://localhost:13889/images/lot002.png`} alt="Product" className="product-image" />
                         <div className="product-infoad">
                           <p>Product Lot: {productDetails.lot_id}</p>
                           <p>Grade: {productDetails.grade}</p>
@@ -180,12 +180,12 @@ const AdminCheckOrderPage = () => {
                     ) : (
                       <p>Product details not available.</p>
                     )}
-                    <button
+                    {/* <button
                       className={`packed-label ${packedStatus[index] ? 'pack-green' : 'packed-red'}`}
                       onClick={() => togglePackedStatus(index)}
                     >
                       Pack
-                    </button>
+                    </button> */}
                   </div>
                 );
               })
@@ -223,10 +223,7 @@ const AdminCheckOrderPage = () => {
                   <span className="detail-infolabel">Delivery status:<p> !!{filteredOrder.delivery_status}!!</p></span>
                   <button className="delivery-status-sentbutton" onClick={handledeliveryOrder}>Sent The Packet</button>
                 </div>
-                <div className="detail-inforow">
-                  <span className="detail-infolabel">Receipt:</span>
-                  <button className="print-receiptbutton" onClick={handleprintreceipt}>Print Receipt</button>
-                </div>
+                
               </div>
             </div>
           </div>
