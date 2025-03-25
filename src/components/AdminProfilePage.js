@@ -166,10 +166,7 @@ function AdminProfilePage() {
                     </span>
                   </div>
 
-                  <div className="detail-inforow">
-                    <span className="detail-infolabel">Receipt:</span>
-                    <button className="print-receiptbutton" onClick={handlePrintReceipt}>Print Receipt</button>
-                  </div>
+                  
                 </div>
                 {showSlip && (
                 <div className="modal-overlay" onClick={() => setShowSlip(false)}>

@@ -163,7 +163,7 @@ const CartPage = () => {
           cartItems.map((item) => (
             <div key={item.product_in_cart_id} className="cart-item">
               <img
-              src={item  ? `http://localhost:13889${item.product.image_path}` : '/image/durian.png'}
+              src={`http://localhost:13889/images/lot002.png`}
               alt="Durian"
                 className="product-imagecart"
               />
@@ -174,7 +174,7 @@ const CartPage = () => {
                 <div className="product-price">Price each: {item.product.sale_price} Baht</div>
                 <div className="product-amount">Amount: {item.amount}</div>
               </div>
-              {/* Uncommented for use */}
+              
               <button
                 className="cart-cancel-button"
                 onClick={() => handleRemoveItem(item.product_in_cart_id)}

@@ -10,7 +10,7 @@ const YourOrderPage = () => {
   const userId = localStorage.getItem('userId');
   const [allDeliverOrders, setAllDeliverOrders] = useState([]);
   const [allOrders, setAllOrders] = useState([]);
-  const [receiptPath, setReceiptPath] = useState(null);
+  // const [receiptPath, setReceiptPath] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
   const [productImages, setProductImages] = useState({});
 
@@ -60,18 +60,21 @@ const YourOrderPage = () => {
       }
     };
 
-    const fetchReceipt = async () => {
-      try {
-        const response = await axios.get(`http://localhost:13889/receipt/${orderId}`);
-        if (response.data && response.data.receiptPath) {
-          setReceiptPath(response.data.receiptPath);
-        } else {
-          console.warn('Receipt not found for order:', orderId);
-        }
-      } catch (error) {
-        console.error('Error fetching receipt:', error);
-      }
-    };
+
+    // const fetchReceipt = async () => {
+    //   try {
+    //     const response = await axios.get(`http://localhost:13889/receipt/${orderId}`);
+    //     if (response.data && response.data.receiptPath) {
+    //       setReceiptPath(response.data.receiptPath);
+    //     } else {
+    //       console.warn('Receipt not found for order:', orderId);
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching receipt:', error);
+    //   }
+  
+    // };
+
 
     const fetchAllProducts = async () => {
       try {
@@ -96,7 +99,7 @@ const YourOrderPage = () => {
     fetchAllProducts();
     fetchOrderDetails();
     fetchOrders();
-    fetchReceipt();
+    // fetchReceipt();
   }, [orderId]);
 
   const findProductDetails = (lotId, grade) => {
@@ -169,40 +172,34 @@ const YourOrderPage = () => {
       <div className="order-layout">
         {/* Left Section: Delivery Status and Receipt */}
         <div className="left-section">
-          <div className="delivery-status-container">
-            <h2>Delivery Status</h2>
-            {orderIdDetail ? (
-              <div
-                className={`status ${
-                  orderIdDetail.delivery_status === 'sent the packet'
-                    ? 'delivered'
-                    : 'pending'
-                }`}
-                style={{
-                  color: orderIdDetail.delivery_status === 'sent the packet' ? 'green' : 'black',
-                }}
-              >
-                {orderIdDetail.delivery_status === 'sent the packet'
-                  ? <p>{orderEms.ems_code}</p>
-                  : 'In the process to be delivered'}
-              </div>
-            ) : (
-              <p>Loading delivery status...</p>
-            )}
-          </div>
+        <div className="delivery-status-container">
+          <h2>Delivery Status</h2>
+          {orderDetails.payment_status === 'Rejected' ? (
+            <p style={{ color: 'red', fontWeight: 'bold' }}>
+              ❌ Your payment was rejected due to incorrect slip information.
+            </p>
+          ) : orderIdDetail ? (
+            <div
+              className={`status ${
+                orderIdDetail.delivery_status === 'sent the packet'
+                  ? 'delivered'
+                  : 'pending'
+              }`}
+              style={{
+                color: orderIdDetail.delivery_status === 'sent the packet' ? 'green' : 'black',
+              }}
+            >
+              {orderIdDetail.delivery_status === 'sent the packet'
+                ? <p>{orderEms?.ems_code || 'EMS code not available'}</p>
+                : 'In the process to be delivered'}
+            </div>
+          ) : (
+            <p>Loading delivery status...</p>
+          )}
+        </div>
 
-          <div className="receipt-container">
-            <h2>Your Receipt</h2>
-            {receiptPath ? (
-              <img
-                src={`http://localhost:13889${receiptPath.startsWith('/') ? receiptPath : `/${receiptPath}`}`}
-                alt="Receipt"
-                className="receipt-image"
-              />
-            ) : (
-              <p>No receipt available.</p>
-            )}
-          </div>
+
+
         </div>
 
         {/* Right Section: Order Info and Product List */}
@@ -221,8 +218,10 @@ const YourOrderPage = () => {
               return (
                 <div className="product-item" key={index}>
                   <img
-                    src={imagePath ? `http://localhost:13889${imagePath}` : "default-durian.jpg"}
-                    alt={`Product ${line.lotId} - ${line.grade}`}
+
+                    src={`http://localhost:13889/images/lot002.png`}
+                    alt={line.lotId}
+
                     className="product-imageorder"
                   />
                   <div className="product-infoorder">
@@ -230,11 +229,21 @@ const YourOrderPage = () => {
                     <p>Grade: {line.grade}</p>
                     <p>Amount: {line.amount}</p>
                   </div>
-                  <button className="review-button" onClick={() => handleReview(line)}>Review</button>
+
+                  {/* ✅ เงื่อนไขแสดงปุ่ม Review */}
+                  {orderIdDetail?.delivery_status === 'sent the packet' && (
+                    <button
+                      className="review-button"
+                      onClick={() => handleReview(line)}
+                    >
+                      Review
+                    </button>
+                  )}
                 </div>
               );
             })}
           </div>
+
         </div>
       </div>
     </div>
