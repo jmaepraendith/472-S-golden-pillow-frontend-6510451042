@@ -60,7 +60,6 @@ const YourOrderPage = () => {
       }
     };
 
-
     // const fetchReceipt = async () => {
     //   try {
     //     const response = await axios.get(`http://localhost:13889/receipt/${orderId}`);
@@ -74,7 +73,6 @@ const YourOrderPage = () => {
     //   }
   
     // };
-
 
     const fetchAllProducts = async () => {
       try {
@@ -199,6 +197,7 @@ const YourOrderPage = () => {
         </div>
 
 
+          
 
         </div>
 
@@ -218,10 +217,8 @@ const YourOrderPage = () => {
               return (
                 <div className="product-item" key={index}>
                   <img
-
                     src={`http://localhost:13889/images/lot002.png`}
                     alt={line.lotId}
-
                     className="product-imageorder"
                   />
                   <div className="product-infoorder">
@@ -243,6 +240,8 @@ const YourOrderPage = () => {
               );
             })}
           </div>
+
+
 
         </div>
       </div>
