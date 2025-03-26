@@ -10,6 +10,7 @@
     "body-parser": "^1.20.3",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
+    "dompurify": "^3.2.4",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "http": "^0.0.1-security",
@@ -19,8 +20,7 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "dompurify": "^3.2.4"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

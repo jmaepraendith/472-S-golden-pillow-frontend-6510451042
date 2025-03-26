@@ -53,7 +53,7 @@ function RegisterProductPage() {
     formData.append('image', productData.image);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/products`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/products`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -80,7 +80,7 @@ function RegisterProductPage() {
           {previewImage ? (
             <img src={DOMPurify.sanitize(previewImage)} alt="Preview" />
           ) : (
-            <img src="pngtree-durian-png-image_9440762.png" alt="Durian" />
+            <img src= {`${process.env.REACT_APP_API_URL}/images/lot002.png`} alt="Durian" />
           )}
           <label className="upload-btn">
             <input

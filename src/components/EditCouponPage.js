@@ -13,7 +13,7 @@ function EditCouponPage() {
   useEffect(() => {
     const fetchCouponDetails = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/coupon/get-coupon-by-id/${coupon_id}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/coupon/get-coupon-by-id/${coupon_id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch coupon details");
         }
@@ -34,7 +34,7 @@ function EditCouponPage() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/coupon/${selectedStatus === "AVAILABLE" ? "reActivateCoupon" : "disableCoupon"}/${coupon.coupon_id}`,
+        `${process.env.REACT_APP_API_URL}/coupon/${selectedStatus === "AVAILABLE" ? "reActivateCoupon" : "disableCoupon"}/${coupon.coupon_id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

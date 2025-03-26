@@ -27,7 +27,7 @@ function AddAdminStaffPage() {
   const checkUsername = async (username) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/check-username/${username}`
+        `${process.env.REACT_APP_API_URL}/check-username/${username}`
       );
       if (response.status === 409) {
         alert("Username is already taken");
@@ -71,7 +71,7 @@ function AddAdminStaffPage() {
 
     // 5. Send data to backend if validations pass
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/register-admin-staff`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/register-admin-staff`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
