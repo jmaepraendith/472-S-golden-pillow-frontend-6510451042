@@ -61,28 +61,31 @@ function CheckDeliveryOrderPage() {
   };
 
 
-  const handleAddDelivery = async (e) => {
-    e.preventDefault();
+  const handleAddDelivery = async () => {
     try {
       if (userData.role === "delivering staff") {
-         await axios.post(`${process.env.REACT_APP_API_URL}/delivered-orders`, {
-        order_id: orderId,
-        ems_code: emsCode,
-        staff_id: userId
-      });
-      alert("Delivery Order has been made.");
-      await axios.post(`${process.env.REACT_APP_API_URL}/orders/updatedeliveryStatus`, {
-        orderId: orderId,
-        delivery_status: "sent the packet",
-      });
-      alert("Order delivery status updated to sent the packet.");
-      window.location.reload();
-    }
+        await axios.post(`${process.env.REACT_APP_API_URL}/delivered-orders`, {
+          order_id: orderId,
+          ems_code: emsCode,
+          staff_id: userId
+        });
+  
+        alert("Delivery Order has been made.");
+  
+        await axios.post(`${process.env.REACT_APP_API_URL}/orders/updatedeliveryStatus`, {
+          orderId: orderId,
+          delivery_status: "sent the packet",
+        });
+  
+        alert("Order delivery status updated to sent the packet.");
+        window.location.reload();
+      }
     } catch (error) {
-      console.error("Error updating delivery status status:", error);
-      alert("Failed to update delivery status status.");
+      console.error("Error updating delivery status:", error);
+      alert("Failed to update delivery status.");
     }
   };
+  
 
 
   const handleInputChange = (event) => {
@@ -172,23 +175,22 @@ function CheckDeliveryOrderPage() {
               <div className="status-buttons">
                 <div className="detail-inforow">
                   <span className="detail-infolabel">Order's EMS</span>
-                  <div className="input-group">
-                  <form onSubmit={handleAddDelivery} className="ems-form">
+                  <div className="input-group ems-form">
                     <input
                       type="text"
                       name="ems_code"
                       placeholder="Enter EMS code"
                       required
-                      value={emsCode} 
+                      value={emsCode}
                       onChange={handleInputChange}
                     />
-                    <button className="see-slip-button" type="submit">
+                    <button className="see-slip-button" onClick={handleAddDelivery}>
                       Confirm
                     </button>
-                  </form>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         )}
