@@ -24,7 +24,7 @@ function Register() {
   // Function to check if the username is already taken
   const checkUsername = async (username) => {
     try {
-      const response = await fetch(`http://localhost:13889/check-username/${username}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/check-username/${username}`);
       if (response.status === 409) {
         alert('Username is already taken');
         return false;
@@ -67,7 +67,7 @@ function Register() {
 
     // 5. Send data to backend if validations pass
     try {
-      const response = await fetch('http://localhost:13889/register', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

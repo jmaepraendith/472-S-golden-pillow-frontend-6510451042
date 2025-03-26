@@ -34,7 +34,7 @@ const YourOrderPage = () => {
     const fetchOrderDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:13889/order/detail/${orderId}`
+          `${import.meta.env.VITE_API_URL}/order/detail/${orderId}`
         );
         setOrderDetails(response.data);
       } catch (error) {
@@ -44,7 +44,7 @@ const YourOrderPage = () => {
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:13889/orders');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/orders`);
         setAllOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -53,7 +53,7 @@ const YourOrderPage = () => {
 
     const fetchDeliverOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:13889/delivered-orders');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/delivered-orders`);
         setAllDeliverOrders(response.data);
       } catch (error) {
         console.error('Error fetching deliver orders:', error);
@@ -62,7 +62,7 @@ const YourOrderPage = () => {
 
     // const fetchReceipt = async () => {
     //   try {
-    //     const response = await axios.get(`http://localhost:13889/receipt/${orderId}`);
+    //     const response = await axios.get(`${import.meta.env.VITE_API_URL}/receipt/${orderId}`);
     //     if (response.data && response.data.receiptPath) {
     //       setReceiptPath(response.data.receiptPath);
     //     } else {
@@ -76,7 +76,7 @@ const YourOrderPage = () => {
 
     const fetchAllProducts = async () => {
       try {
-        const response = await fetch('http://localhost:13889/allproductslist');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/allproductslist`);
         const data = await response.json();
         setAllProducts(data);
         
@@ -217,7 +217,7 @@ const YourOrderPage = () => {
               return (
                 <div className="product-item" key={index}>
                   <img
-                    src={`http://localhost:13889/images/lot002.png`}
+                    src={`${import.meta.env.VITE_API_URL}/images/lot002.png`}
                     alt={line.lotId}
                     className="product-imageorder"
                   />

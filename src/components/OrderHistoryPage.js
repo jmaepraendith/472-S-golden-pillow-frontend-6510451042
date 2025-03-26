@@ -12,7 +12,7 @@ function OrdersHistory() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:13889/orders');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/orders`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);

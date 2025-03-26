@@ -10,7 +10,7 @@ function CouponPage() {
   useEffect(() => {
     const fetchCoupons = async () => {
       try {
-        const response = await fetch("http://localhost:13889/coupon");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/coupon`);
         if (!response.ok) {
           throw new Error("Failed to fetch coupons");
         }

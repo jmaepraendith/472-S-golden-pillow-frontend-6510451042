@@ -11,7 +11,7 @@ const ProductListPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:13889/allproductslist'); // Adjust the URL
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/allproductslist`); // Adjust the URL
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -35,7 +35,7 @@ const ProductListPage = () => {
             key={`${product.lot_id}-${product.grade}`}
           >
            <img
-  src={product.image_path ? `http://localhost:13889${product.image_path}` : '/image/durian.png'}
+  src={ `${import.meta.env.VITE_API_URL}/images/lot002.png`}
   alt="Durian"
   className="product-imagelist"
 />

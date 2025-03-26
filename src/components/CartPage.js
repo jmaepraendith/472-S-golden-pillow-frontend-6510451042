@@ -9,7 +9,7 @@ const CartPage = () => {
   const { userId } = useParams();
 
   useEffect(() => {
-  fetch(`http://localhost:13889/cart/${userId}`)
+  fetch(`${import.meta.env.VITE_API_URL}/cart/${userId}`)
     .then((response) => response.json())
     .then((data) => {
       console.log('Fetched cart items:', data); // Check the response structure
@@ -25,7 +25,7 @@ const CartPage = () => {
 
   const handleRemoveItem = (productInCartId) => {
     // Remove single item from cart
-    fetch(`http://localhost:13889/cart/item/${productInCartId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/cart/item/${productInCartId}`, {
       method: 'DELETE',
     })
       .then((response) => {
@@ -47,7 +47,7 @@ const CartPage = () => {
 
   const handleCancelAll = () => {
     // Remove all items from the cart for the current user
-    fetch(`http://localhost:13889/cart/${userId}/clear`, {
+    fetch(`${import.meta.env.VITE_API_URL}/cart/${userId}/clear`, {
       method: 'DELETE',
     })
       .then((response) => {
@@ -67,7 +67,7 @@ const CartPage = () => {
   const handleIncreaseAmount = (productInCartId, currentAmount) => {
     // Increase the amount of the product in the cart
     const newAmount = currentAmount + 1;
-    fetch(`http://localhost:13889/cart/item/${productInCartId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/cart/item/${productInCartId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ const CartPage = () => {
 
     // Decrease the amount of the product in the cart
     const newAmount = currentAmount - 1;
-    fetch(`http://localhost:13889/cart/item/${productInCartId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/cart/item/${productInCartId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ const CartPage = () => {
 
   const handlePayAll = () => {
     // Handle payment and create order
-    fetch(`http://localhost:13889/order/${userId}/payall`, {
+    fetch(`${import.meta.env.VITE_API_URL}/order/${userId}/payall`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ const CartPage = () => {
           cartItems.map((item) => (
             <div key={item.product_in_cart_id} className="cart-item">
               <img
-              src={`http://localhost:13889/images/lot002.png`}
+              src={`${import.meta.env.VITE_API_URL}/images/lot002.png`}
               alt="Durian"
                 className="product-imagecart"
               />

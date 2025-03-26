@@ -13,7 +13,7 @@ const CheckEmployeeInfoPage = () => {
     const fetchUserData = async () => {
       try {
         const response1 = await axios.get(
-          `http://localhost:13889/user/${staffId}`
+          `${import.meta.env.VITE_API_URL}/user/${staffId}`
         );
         setUserData(response1.data);
       } catch (error) {
@@ -33,7 +33,7 @@ const handleDeleteUser = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this user?");
     if (confirmDelete) {
       // Make a DELETE request to the backend
-      await axios.delete(`http://localhost:13889/delete-user/${staffId}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/delete-user/${staffId}`);
       alert("User deleted successfully");
       navigate(-1); 
     }
