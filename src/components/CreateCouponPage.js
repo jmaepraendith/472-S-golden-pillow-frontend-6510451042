@@ -13,7 +13,7 @@ function CreateCoupon() {
 
     const checkCouponCode = async (coupon_code) => {
       try {
-        const response = await fetch(`http://localhost:13889/coupon/check-coupon/${coupon_code}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/coupon/check-coupon/${coupon_code}`);
         if (response.status === 409) {
           alert('This coupon code is already taken');
           return false;
@@ -33,7 +33,7 @@ function CreateCoupon() {
     if (!isCouponCodeAvailable) return;
 
     try {
-      const response = await fetch('http://localhost:13889/coupon/createCoupon', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/coupon/createCoupon`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -12,7 +12,7 @@ const ClientProfilePage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response1 = await axios.get(`http://localhost:13889/user/${userId}`);
+        const response1 = await axios.get(`${import.meta.env.VITE_API_URL}/user/${userId}`);
         setUserData(response1.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -26,7 +26,7 @@ const ClientProfilePage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:13889/orders/user/${userId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/user/${userId}`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);

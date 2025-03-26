@@ -15,7 +15,7 @@ function AdminProfilePage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:13889/user/${userId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/user/${userId}`);
         setUserData(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -26,7 +26,7 @@ function AdminProfilePage() {
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:13889/orders');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/orders`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -57,7 +57,7 @@ function AdminProfilePage() {
   const handleAcceptOrder = async () => {
     try {
       console.log(orderId);
-      await axios.post(`http://localhost:13889/orders/updatePaymentStatus`, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/orders/updatePaymentStatus`, {
         orderId,
         payment_status: 'Approved',
       });
@@ -71,7 +71,7 @@ function AdminProfilePage() {
 
   const handleRejectOrder = async () => {
     try {
-      await axios.post(`http://localhost:13889/orders/updatePaymentStatus`, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/orders/updatePaymentStatus`, {
         orderId,
         payment_status: 'Rejected',
       });
@@ -88,7 +88,7 @@ function AdminProfilePage() {
   const handlePrintReceipt = async () => {
     const userId = localStorage.getItem('userId');
     try {
-      await axios.post(`http://localhost:13889/orders/createreceipt`, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/orders/createreceipt`, {
         orderId,
         userId,
       });
@@ -172,7 +172,7 @@ function AdminProfilePage() {
                 <div className="modal-overlay" onClick={() => setShowSlip(false)}>
                   <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                     <img
-                      src={`http://localhost:13889${selectOrder.slip_payment}`}
+                      src={`${import.meta.env.VITE_API_URL}${selectOrder.slip_payment}`}
                       alt="Transfer Slip"
                       className="slip-image"
                     />

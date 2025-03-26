@@ -16,7 +16,7 @@ function CheckDeliveryOrderPage() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:13889/user/${userId}`
+          `${import.meta.env.VITE_API_URL}/user/${userId}`
         );
         setUserData(response.data);
       } catch (error) {
@@ -28,7 +28,7 @@ function CheckDeliveryOrderPage() {
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:13889/orders");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/orders`);
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -65,13 +65,13 @@ function CheckDeliveryOrderPage() {
     e.preventDefault();
     try {
       if (userData.role === "delivering staff") {
-         await axios.post(`http://localhost:13889/delivered-orders`, {
+         await axios.post(`${import.meta.env.VITE_API_URL}/delivered-orders`, {
         order_id: orderId,
         ems_code: emsCode,
         staff_id: userId
       });
       alert("Delivery Order has been made.");
-      await axios.post(`http://localhost:13889/orders/updatedeliveryStatus`, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/orders/updatedeliveryStatus`, {
         orderId: orderId,
         delivery_status: "sent the packet",
       });

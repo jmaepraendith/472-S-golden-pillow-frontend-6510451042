@@ -17,7 +17,7 @@ function OwnerProfilePage() {
   useEffect(() => {
     const fetchIncomeSummary = async () => {
       try {
-        const response = await axios.get(`http://localhost:13889/income-summary`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/income-summary`);
         setIncomeSummary(response.data);
       } catch (error) {
         console.error('Error fetching income summary:', error);
@@ -47,7 +47,7 @@ function OwnerProfilePage() {
           };
           const month = monthMap[selectedMonth];
           if (month) {
-            const response = await axios.get(`http://localhost:13889/sales-summary/${month}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/sales-summary/${month}`);
             setSalesSummary(response.data);
           }
         }
@@ -62,7 +62,7 @@ function OwnerProfilePage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:13889/user/${userId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/user/${userId}`);
         setUserData(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -73,7 +73,7 @@ function OwnerProfilePage() {
 
     const fetchAdminUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:13889/allusers');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/allusers`);
         const admins = response.data.filter(user => user.role === 'admin');
         setAdminUsers(admins);
       } catch (error) {
@@ -83,7 +83,7 @@ function OwnerProfilePage() {
 
     const fetchStaffUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:13889/allusers');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/allusers`);
         const staffs = response.data.filter(user => user.role === 'packaging staff' || user.role === 'delivering staff');
         console.log(staffs);
         setStaffUsers(staffs);

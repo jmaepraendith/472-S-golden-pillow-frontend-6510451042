@@ -26,7 +26,7 @@ const ReviewPage = () => {
     const fetchReview = async () => {
       try {
         const response = await fetch(
-          `http://localhost:13889/reviews?lot_id=${lot_id}&grade=${grade}&username=${username}`
+          `${import.meta.env.VITE_API_URL}/reviews?lot_id=${lot_id}&grade=${grade}&username=${username}`
         );
         const data = await response.json();
 
@@ -60,7 +60,7 @@ const ReviewPage = () => {
       if (isEditing) {
         // 🛠️ เรียก API อัปเดตรีวิว
         response = await fetch(
-          `http://localhost:13889/reviews/edit/${reviewId}`,
+          `${import.meta.env.VITE_API_URL}/reviews/edit/${reviewId}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ const ReviewPage = () => {
         );
       } else {
         // 🛠️ เรียก API สร้างรีวิวใหม่
-        response = await fetch("http://localhost:13889/reviews/create", {
+        response = await fetch(`${import.meta.env.VITE_API_URL}/reviews/create`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(reviewData),

@@ -18,7 +18,7 @@ function CheckPackedOrderPage() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:13889/user/${userId}`
+          `${import.meta.env.VITE_API_URL}/user/${userId}`
         );
         setUserData(response.data);
       } catch (error) {
@@ -30,7 +30,7 @@ function CheckPackedOrderPage() {
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:13889/orders");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/orders`);
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -46,7 +46,7 @@ function CheckPackedOrderPage() {
       const fetchOrderDetails = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:13889/order/detail/${orderId}`
+            `${import.meta.env.VITE_API_URL}/order/detail/${orderId}`
           );
           setOrderDetails(response.data);
         } catch (error) {
@@ -61,7 +61,7 @@ function CheckPackedOrderPage() {
 
     const fetchAllProducts = async () => {
       try {
-        const response = await fetch("http://localhost:13889/allproductslist");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/allproductslist`);
         const data = await response.json();
         setAllProducts(data);
       } catch (error) {
@@ -85,7 +85,7 @@ function CheckPackedOrderPage() {
   const handlePackedstatusOrder = async () => {
     try {
       if (userData.role === "packaging staff") {
-        await axios.post(`http://localhost:13889/orders/updatePackedStatus`, {
+        await axios.post(`${import.meta.env.VITE_API_URL}/orders/updatePackedStatus`, {
           orderId,
           packed_status: "packed",
         });
@@ -255,7 +255,7 @@ function CheckPackedOrderPage() {
                         {productDetails ? (
                           <>
                             <img
-                              src={`http://localhost:13889${productDetails.image_path}`}
+                              src={`${import.meta.env.VITE_API_URL}/images/lot002.png`}
                               alt="Product"
                               className="product-image"
                             />

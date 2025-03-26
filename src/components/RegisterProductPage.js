@@ -53,7 +53,7 @@ function RegisterProductPage() {
     formData.append('image', productData.image);
 
     try {
-      const response = await axios.post('http://localhost:13889/products', formData, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/products`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
