@@ -2,12 +2,16 @@ version: '3.8'
 
 services:
   frontend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: 472-s-golden-pillow-frontend-6510451042
     container_name: goldenpillow-frontend
     ports:
       - "13000:3000"
     restart: always
+    env_file:
+      - .env
 
 
 
