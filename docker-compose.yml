@@ -8,7 +8,7 @@ services:
     image: 472-s-golden-pillow-frontend-6510451042
     container_name: goldenpillow-frontend
     ports:
-      - "13000:3000"
+      - "13000:80"
     restart: always
     env_file:
       - .env
