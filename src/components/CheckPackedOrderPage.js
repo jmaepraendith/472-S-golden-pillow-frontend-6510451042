@@ -18,7 +18,7 @@ function CheckPackedOrderPage() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/user/${userId}`
+          `${process.env.REACT_APP_API_URL}/user/${userId}`
         );
         setUserData(response.data);
       } catch (error) {
@@ -30,7 +30,7 @@ function CheckPackedOrderPage() {
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/orders`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`);
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -46,7 +46,7 @@ function CheckPackedOrderPage() {
       const fetchOrderDetails = async () => {
         try {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/order/detail/${orderId}`
+            `${process.env.REACT_APP_API_URL}/order/detail/${orderId}`
           );
           setOrderDetails(response.data);
         } catch (error) {
@@ -61,7 +61,7 @@ function CheckPackedOrderPage() {
 
     const fetchAllProducts = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/allproductslist`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/allproductslist`);
         const data = await response.json();
         setAllProducts(data);
       } catch (error) {
@@ -85,7 +85,7 @@ function CheckPackedOrderPage() {
   const handlePackedstatusOrder = async () => {
     try {
       if (userData.role === "packaging staff") {
-        await axios.post(`${import.meta.env.VITE_API_URL}/orders/updatePackedStatus`, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/orders/updatePackedStatus`, {
           orderId,
           packed_status: "packed",
         });
@@ -255,7 +255,7 @@ function CheckPackedOrderPage() {
                         {productDetails ? (
                           <>
                             <img
-                              src={`${import.meta.env.VITE_API_URL}/images/lot002.png`}
+                              src={`${process.env.REACT_APP_API_URL}/images/lot002.png`}
                               alt="Product"
                               className="product-image"
                             />

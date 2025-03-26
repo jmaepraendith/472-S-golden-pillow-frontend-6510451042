@@ -16,7 +16,7 @@ const PaymentPage = () => {
 
   // Fetch order details when the component loads
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/order/${orderId}`)
+    fetch(`${process.env.REACT_APP_API_URL}/order/${orderId}`)
       .then((response) => response.json())
       .then((data) => {
         console.log('Fetched order data:', data); // Debugging
@@ -27,7 +27,7 @@ const PaymentPage = () => {
 
   // Handle order cancellation
   const handleCancelOrder = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/order/${orderId}`, { method: 'DELETE' })
+    fetch(`${process.env.REACT_APP_API_URL}/order/${orderId}`, { method: 'DELETE' })
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to cancel order');
@@ -52,7 +52,7 @@ const PaymentPage = () => {
     formData.append('image', file); // Append the file to the form data
 
     // Send the file to the backend
-    fetch(`${import.meta.env.VITE_API_URL}/upload/${orderId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/upload/${orderId}`, {
       method: 'POST',
       body: formData,
     })
@@ -80,7 +80,7 @@ const PaymentPage = () => {
     const cartId = order.cart_id; // Get the cart_id from the order data
 
     // Delete all items in the cart by cart_id
-    fetch(`${import.meta.env.VITE_API_URL}/cart/clearitems/${cartId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/cart/clearitems/${cartId}`, {
       method: 'DELETE',
     })
       .then((response) => {
@@ -107,7 +107,7 @@ const PaymentPage = () => {
     }
 
     try {
-      const cartResponse = await fetch(`${import.meta.env.VITE_API_URL}/cart/${userId}/item-count`, {
+      const cartResponse = await fetch(`${process.env.REACT_APP_API_URL}/cart/${userId}/item-count`, {
         method: "GET",
       });
       
@@ -125,7 +125,7 @@ const PaymentPage = () => {
       console.log(totalAmount);
 
         // Step 1: Verify if the coupon is valid
-        const verifyResponse = await fetch(`${import.meta.env.VITE_API_URL}/coupon/check-coupon-condition`, {
+        const verifyResponse = await fetch(`${process.env.REACT_APP_API_URL}/coupon/check-coupon-condition`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
@@ -148,7 +148,7 @@ const PaymentPage = () => {
         console.log(verifyResult.message); // "Coupon can be used"
 
         // Step 2: Apply the discount
-        const discountResponse = await fetch(`${import.meta.env.VITE_API_URL}/coupon/coupon-discount`, {
+        const discountResponse = await fetch(`${process.env.REACT_APP_API_URL}/coupon/coupon-discount`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
@@ -182,7 +182,7 @@ const PaymentPage = () => {
         <div className="qr-code-section">
           <h2 className="qr-title">QR CODE</h2>
           <img
-            src={`http://localhost:13889/images/qrcode.jpg`}
+            src={`${process.env.REACT_APP_API_URL}/images/qrcode.jpg`}
             alt="QR Code"
             className="qr-code"
             onError={(e) => {

@@ -17,7 +17,7 @@ const AdminCheckOrderPage = () => {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/order/detail/${orderId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/order/detail/${orderId}`);
         setOrderDetails(response.data);
       } catch (error) {
         console.error('Error fetching order details:', error);
@@ -26,7 +26,7 @@ const AdminCheckOrderPage = () => {
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/orders`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`);
         setAllOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -35,7 +35,7 @@ const AdminCheckOrderPage = () => {
 
     const fetchAllProducts = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/allproductslist`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/allproductslist`);
         const data = await response.json();
         setAllProducts(data);
       } catch (error) {
@@ -81,7 +81,7 @@ const AdminCheckOrderPage = () => {
 
   const handleAcceptOrder = async () => {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/orders/updatePaymentStatus`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/orders/updatePaymentStatus`, {
         orderId,
         payment_status: "Approved"
       });
@@ -93,7 +93,7 @@ const AdminCheckOrderPage = () => {
   };
   const handleRejectOrder = async () => {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/orders/updatePaymentStatus`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/orders/updatePaymentStatus`, {
         orderId,
         payment_status: "Rejected"
       });
@@ -107,7 +107,7 @@ const AdminCheckOrderPage = () => {
   
   const handledeliveryOrder = async () => {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/orders/updatedeliveryStatus`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/orders/updatedeliveryStatus`, {
         orderId,
         delivery_status: "sent the packet"
       });
@@ -121,7 +121,7 @@ const AdminCheckOrderPage = () => {
   
   const handlePackedstatusOrder = async () => {
     try {
-        await axios.post(`${import.meta.env.VITE_API_URL}/orders/updatePackedStatus`, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/orders/updatePackedStatus`, {
           orderId,
           packed_status: "packed"
         });
@@ -169,7 +169,7 @@ const AdminCheckOrderPage = () => {
                   <div key={index} className="product-card">
                     {productDetails ? (
                       <>
-                        <img src={`${import.meta.env.VITE_API_URL}/images/lot002.png`} alt="Product" className="product-image" />
+                        <img src={`${process.env.REACT_APP_API_URL}/images/lot002.png`} alt="Product" className="product-image" />
                         <div className="product-infoad">
                           <p>Product Lot: {productDetails.lot_id}</p>
                           <p>Grade: {productDetails.grade}</p>
@@ -233,7 +233,7 @@ const AdminCheckOrderPage = () => {
           <div className="modal-overlay" onClick={handleCloseSlip}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <img
-                src={`http://localhost:13889${filteredOrder.slip_payment}`}
+                src={`${process.env.REACT_APP_API_URL}${filteredOrder.slip_payment}`}
                 alt="Transfer Slip"
                 className="slip-image"
               />

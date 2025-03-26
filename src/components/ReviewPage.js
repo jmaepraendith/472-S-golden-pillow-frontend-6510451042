@@ -26,7 +26,7 @@ const ReviewPage = () => {
     const fetchReview = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/reviews?lot_id=${lot_id}&grade=${grade}&username=${username}`
+          `${process.env.REACT_APP_API_URL}/reviews?lot_id=${lot_id}&grade=${grade}&username=${username}`
         );
         const data = await response.json();
 
@@ -60,7 +60,7 @@ const ReviewPage = () => {
       if (isEditing) {
         // 🛠️ เรียก API อัปเดตรีวิว
         response = await fetch(
-          `${import.meta.env.VITE_API_URL}/reviews/edit/${reviewId}`,
+          `${process.env.REACT_APP_API_URL}/reviews/edit/${reviewId}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ const ReviewPage = () => {
         );
       } else {
         // 🛠️ เรียก API สร้างรีวิวใหม่
-        response = await fetch(`${import.meta.env.VITE_API_URL}/reviews/create`, {
+        response = await fetch(`${process.env.REACT_APP_API_URL}/reviews/create`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(reviewData),
@@ -94,8 +94,8 @@ const ReviewPage = () => {
       <div className="review-header">
         <h1>Grade: {grade} <br /> Lot: {lot_id}</h1>
         <img
-          src={`http://localhost:13889${image_path.startsWith("/") ? image_path : `/images/${image_path}`}`}
-          onError={(e) => (e.target.src = "http://localhost:13889/images/default-durian.jpg")}
+          src={`${process.env.REACT_APP_API_URL}${image_path.startsWith("/") ? image_path : `/images/${image_path}`}`}
+          onError={(e) => (e.target.src = `${process.env.REACT_APP_API_URL}/images/lot002.png`)}
           alt="Product"
           className="product-image"
         />

@@ -14,7 +14,7 @@ const HomePage = () => {
   
   useEffect(() => {
     // Fetch product data from the backend API
-    fetch(`${import.meta.env.VITE_API_URL}/products`)
+    fetch(`${process.env.REACT_APP_API_URL}/products`)
       .then((response) => response.json())
       .then((data) => {
         console.log('Fetched data:', data); // Debugging
@@ -33,7 +33,7 @@ const [reviewCount, setReviewCount] = useState(0);
 useEffect(() => {
   if (product?.lot_id && product?.grade) {
       console.log("Fetching reviews for:", `"${product.lot_id}"`, `"${product.grade}"`);
-      axios.get(`${import.meta.env.VITE_API_URL}/reviews1/average-rating`, {
+      axios.get(`${process.env.REACT_APP_API_URL}/reviews1/average-rating`, {
         params: {
             lot_id: product.lot_id,
             grade: product.grade
@@ -79,7 +79,7 @@ useEffect(() => {
     }
   
     if (product) {
-      fetch(`${import.meta.env.VITE_API_URL}/cart/${userId}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/cart/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ useEffect(() => {
             Grade: {product ? product.grade : '-'}
           </h2>
           <img
-            src={`${import.meta.env.VITE_API_URL}/images/lot002.png`}
+            src={`${process.env.REACT_APP_API_URL}/images/lot002.png`}
             alt="Durian"
             className="product-image-homepage"
           />

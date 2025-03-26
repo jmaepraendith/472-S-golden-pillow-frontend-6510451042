@@ -19,7 +19,7 @@ const ProductReviewPage = () => {
 
   const fetchReviews = async (star) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews?lot_id=${product.lot_id}&grade=${product.grade}${star ? `&star=${star}` : ''}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/reviews?lot_id=${product.lot_id}&grade=${product.grade}${star ? `&star=${star}` : ''}`);
       const data = await response.json();
       console.log('Fetched reviews:', data); // เพิ่ม log เพื่อตรวจสอบข้อมูลที่ได้
       setReviews(data);
@@ -44,7 +44,7 @@ const ProductReviewPage = () => {
 
   const handleFeedback = async (reviewId, action) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews/feedback/${reviewId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/reviews/feedback/${reviewId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const [reviewCount, setReviewCount] = useState(0);
 useEffect(() => {
   if (product?.lot_id && product?.grade) {
       console.log("Fetching reviews for:", `"${product.lot_id}"`, `"${product.grade}"`);
-      axios.get(`${import.meta.env.VITE_API_URL}/reviews1/average-rating`, {
+      axios.get(`${process.env.REACT_APP_API_URL}/reviews1/average-rating`, {
         params: {
             lot_id: product.lot_id,
             grade: product.grade
@@ -101,7 +101,7 @@ useEffect(() => {
 
       <div className="review-header">
         <h1>Grade: {product.grade}<br /> Lot: {product.lot_id}</h1>
-        <img src={`${import.meta.env.VITE_API_URL}${product.image_path}`} alt="Durian" className="durian-image" />
+        <img src={`${process.env.REACT_APP_API_URL}${product.image_path}`} alt="Durian" className="durian-image" />
       </div>
 
       <span className="rating">{averageRating} ⭐ ({reviewCount} reviews)</span>
