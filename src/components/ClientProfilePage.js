@@ -26,7 +26,7 @@ const ClientProfilePage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/${userId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/user/${userId}`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
