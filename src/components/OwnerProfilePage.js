@@ -32,13 +32,13 @@ function OwnerProfilePage() {
       try {
         if (selectedMonth !== "Months") {
           const monthMap = {
-            January: "2024-01",
-            February: "2024-02",
-            March: "2024-03",
-            April: "2024-04",
-            May: "2024-05",
-            June: "2024-06",
-            July: "2024-07",
+            January: "2025-01",
+            February: "2025-02",
+            March: "2025-03",
+            April: "2025-04",
+            May: "2025-05",
+            June: "2025-06",
+            July: "2025-07",
             August: "2024-08",
             September: "2024-09",
             October: "2024-10",
@@ -183,13 +183,13 @@ function OwnerProfilePage() {
             <select value={selectedMonth} onChange={handleMonthChange} className="month-select">
               <option value="Months">Months</option>
               {Object.keys({
-                January: "2024-01",
-                February: "2024-02",
-                March: "2024-03",
-                April: "2024-04",
-                May: "2024-05",
-                June: "2024-06",
-                July: "2024-07",
+                January: "2025-01",
+                February: "2025-02",
+                March: "2025-03",
+                April: "2025-04",
+                May: "2025-05",
+                June: "2025-06",
+                July: "2025-07",
                 August: "2024-08",
                 September: "2024-09",
                 October: "2024-10",

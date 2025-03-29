@@ -184,7 +184,11 @@ function CheckDeliveryOrderPage() {
                       value={emsCode}
                       onChange={handleInputChange}
                     />
-                    <button className="see-slip-button" onClick={handleAddDelivery}>
+                    <button
+                      className="see-slip-button"
+                      onClick={handleAddDelivery}
+                      type="button" 
+                    >
                       Confirm
                     </button>
                   </div>
